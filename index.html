@@ -35,4 +35,37 @@
       </main>
     </div>
   </body>
+  <script>
+    const newToDoTitleInputTag = document.querySelector("#new-todo-title")
+    const toDoListUlTag = document.querySelector("#todo-list")
+
+    newToDoTitleInputTag.addEventListener("keyup", (event) => {
+      if (event.keyCode === 13) {
+        //todo 이부분 수정 필요
+        if(newToDoTitleInputTag.value !== "") {
+          let li = document.createElement('li');
+          let viewDiv = document.createElement('div')
+          viewDiv.classList.add('view')
+          let toggleInput = document.createElement('check')
+          toggleInput.classList.add('toggle')
+          toggleInput.type = 'checkbox'
+          let label = document.createElement('label')
+          label.innerText = newToDoTitleInputTag.value
+          let destroyButton = document.createElement('button')
+          destroyButton.classList.add('destroy')
+          let editInput = document.createElement('input')
+          editInput.classList.add('edit')
+          editInput.value = newToDoTitleInputTag.value
+
+          viewDiv.append(toggleInput)
+          viewDiv.append(label)
+          viewDiv.append(destroyButton)
+
+          li.append(viewDiv)
+          li.append(editInput)
+          toDoListUlTag.append(li)
+        }
+      }
+    })
+  </script>
 </html>
