@@ -17,7 +17,16 @@
       />
       <main>
         <input class="toggle-all" type="checkbox" />
-        <ul id="todo-list" class="todo-list"></ul>
+        <ul id="todo-list" class="todo-list">
+          <li class="completed">
+            <div class="view">
+              <input class="toggle" type="checkbox"/>
+              <label class="label">새로운 타이틀</label>
+              <button class="destroy"></button>
+            </div>
+            <input class="edit" value="새로운 타이틀" />
+          </li>
+        </ul>
         <div class="count-container">
           <span class="todo-count">총 <strong>0</strong> 개</span>
           <ul class="filters">
@@ -41,7 +50,7 @@
 
     newToDoTitleInputTag.addEventListener("keyup", (event) => {
       if (event.keyCode === 13) {
-        //todo 이부분 수정 필요
+        //todo 이부분 수정 필요 https://velog.io/@seunghwan/JavaScript
         if(newToDoTitleInputTag.value !== "") {
           let li = document.createElement('li');
           let viewDiv = document.createElement('div')
@@ -65,6 +74,16 @@
           li.append(editInput)
           toDoListUlTag.append(li)
         }
+      }
+    })
+
+    const toggleCheck = document.querySelector(".toggle")
+    toggleCheck.addEventListener("click", (event) => {
+      let li = document.querySelector("li");
+      if (toggleCheck.checked) {
+        li.classList.add("completed")
+      } else {
+        li.classList.remove("completed")
       }
     })
   </script>
