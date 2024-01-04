@@ -57,39 +57,26 @@
           let editInput = document.createElement('input')
           editInput.classList.add('edit')
           editInput.value = newToDoTitleInputTag.value
-
           viewDiv.append(toggleInput)
+
           viewDiv.append(label)
           viewDiv.append(destroyButton)
-
           li.append(viewDiv)
+
           li.append(editInput)
           toDoListUlTag.append(li)
-
           toggleInput.addEventListener("click", (event) => {
-            console.log(toggleInput)
             let li = toggleInput.closest('li')
-            console.log(li)
             if (toggleInput.checked) {
               li.classList.add("completed")
             } else {
               li.classList.remove("completed")
             }
           })
+
+          newToDoTitleInputTag.value = null
         }
       }
-    })
-
-    const toggleCheck = document.querySelectorAll(".toggle")
-    toggleCheck.forEach(value => {
-      value.addEventListener("click", (event) => {
-        let li = value.closest('li')
-        if (toggleCheck.checked) {
-          li.classList.add("completed")
-        } else {
-          li.classList.remove("completed")
-        }
-      })
     })
   </script>
 </html>
