@@ -102,6 +102,11 @@
             }
           })
 
+          // 체크 박스 체크될 때
+          toggleInput.addEventListener("click", (event) => {
+            filterToDoList();
+          })
+
           newToDoTitleInputTag.value = null
         }
       }
@@ -109,7 +114,7 @@
 
     //갯수 다시 세기
     const recount = (mutationList, observer) => {
-      const count = toDoListUlTag.childElementCount
+      const count = toDoListUlTag.querySelectorAll("li:not(.hidden)").length
       const countContent = document.querySelector(".count-container .todo-count strong");
       countContent.innerText = count
     }
@@ -119,82 +124,58 @@
     mutationObserver.observe(toDoListUlTag, {childList: true})
 
     // 프래그먼트 식별자에 따라 보여지기
-    const filtersUl = document.querySelector(".filters")
+    const filtersUl = document.querySelector(".filters");
     const filterAList = filtersUl.querySelectorAll("li a");
 
-    window.addEventListener("hashchange", (event) => {
+    const filterToDoList = function() {
       let currentHash = window.location.hash.replace("#", "");
       if(currentHash === "") {
-        currentHash = "all"
+        currentHash = "all";
       }
+
       filterAList.forEach((filterAElement) => {
         if ( filterAElement.classList.contains(currentHash)) {
-          filterAElement.classList.add("selected")
+          filterAElement.classList.add("selected");
         } else {
-          filterAElement.classList.remove("selected")
+          filterAElement.classList.remove("selected");
         }
-      })
-      // 보여지기 숨기기
-      let toDoListLis = toDoListUlTag.querySelectorAll("li");
+      });
 
-      if (currentHash === "all") {
-        toDoListLis.forEach((toDoListLi) => {
-          toDoListLi.classList.remove("hidden")
-        })
-      } else if (currentHash === "active") {
-        toDoListLis.forEach((toDoListLi) => {
-          if(toDoListLi.classList.contains("completed")) {
-            toDoListLi.classList.add("hidden")
-          } else {
-            toDoListLi.classList.remove("hidden")
-          }
-        })
-      } else if (currentHash === "completed") {
-        toDoListLis.forEach((toDoListLi) => {
-          if(toDoListLi.classList.contains("completed")) {
-            toDoListLi.classList.remove("hidden")
-          } else {
-            toDoListLi.classList.add("hidden")
-          }
-        })
+      switch(currentHash) {
+        case "active":
+          showNodes(toDoListUlTag.querySelectorAll("li:not(.completed)"));
+          hideNodes(toDoListUlTag.querySelectorAll("li.completed"));
+          break;
+        case "completed":
+          showNodes(toDoListUlTag.querySelectorAll("li.completed"));
+          hideNodes(toDoListUlTag.querySelectorAll("li:not(.completed)"));
+          break;
+        default:
+          showNodes(toDoListUlTag.querySelectorAll("li"));
+          break;
       }
-    })
-
-    // todo 중복 제거
-    let currentHash = window.location.hash.replace("#", "");
-    if(currentHash === "") {
-      currentHash = "all"
+      recount()
     }
-    filterAList.forEach((filterAElement) => {
-      if ( filterAElement.classList.contains(currentHash)) {
-        filterAElement.classList.add("selected")
-      } else {
-        filterAElement.classList.remove("selected")
-      }
-    })
-    // 보여지기 숨기기
-    let toDoListLis = toDoListUlTag.querySelectorAll("li");
 
-    if (currentHash === "all") {
-      toDoListLis.forEach((toDoListLi) => {
-        toDoListLi.classList.remove("hidden")
-      })
-    } else if (currentHash === "active") {
-      toDoListLis.forEach((toDoListLi) => {
-        if(toDoListLi.classList.contains("completed")) {
-          toDoListLi.classList.add("hidden")
-        } else {
-          toDoListLi.classList.remove("hidden")
-        }
-      })
-    } else if (currentHash === "completed") {
-      toDoListLis.forEach((toDoListLi) => {
-        if(toDoListLi.classList.contains("completed")) {
-          toDoListLi.classList.remove("hidden")
-        } else {
-          toDoListLi.classList.add("hidden")
-        }
-      })
+    function showNodes(nodeList) {
+      nodeList.forEach((node) => {
+        node.classList.remove("hidden");
+      });
     }
+
+    const hideNodes = function(nodeList) {
+      nodeList.forEach((node) => {
+        node.classList.add("hidden");
+      });
+    }
+
+    // 해쉬가 바뀔 때
+    window.addEventListener("hashchange", (event) => {
+      filterToDoList();
+    });
+
+    // 새로 입력될 때
+    const filteringObserver = new MutationObserver(filterToDoList);
+    filteringObserver.observe(toDoListUlTag, {childList: true});
   </script>
 </html>
