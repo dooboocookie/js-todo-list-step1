@@ -114,8 +114,87 @@
       countContent.innerText = count
     }
 
-    const mutationObserver = new MutationObserver(recount);
+    const mutationObserver = new MutationObserver(recount)
 
     mutationObserver.observe(toDoListUlTag, {childList: true})
+
+    // 프래그먼트 식별자에 따라 보여지기
+    const filtersUl = document.querySelector(".filters")
+    const filterAList = filtersUl.querySelectorAll("li a");
+
+    window.addEventListener("hashchange", (event) => {
+      let currentHash = window.location.hash.replace("#", "");
+      if(currentHash === "") {
+        currentHash = "all"
+      }
+      filterAList.forEach((filterAElement) => {
+        if ( filterAElement.classList.contains(currentHash)) {
+          filterAElement.classList.add("selected")
+        } else {
+          filterAElement.classList.remove("selected")
+        }
+      })
+      // 보여지기 숨기기
+      let toDoListLis = toDoListUlTag.querySelectorAll("li");
+
+      if (currentHash === "all") {
+        toDoListLis.forEach((toDoListLi) => {
+          toDoListLi.classList.remove("hidden")
+        })
+      } else if (currentHash === "active") {
+        toDoListLis.forEach((toDoListLi) => {
+          if(toDoListLi.classList.contains("completed")) {
+            toDoListLi.classList.add("hidden")
+          } else {
+            toDoListLi.classList.remove("hidden")
+          }
+        })
+      } else if (currentHash === "completed") {
+        toDoListLis.forEach((toDoListLi) => {
+          if(toDoListLi.classList.contains("completed")) {
+            toDoListLi.classList.remove("hidden")
+          } else {
+            toDoListLi.classList.add("hidden")
+          }
+        })
+      }
+    })
+
+    // todo 중복 제거
+    let currentHash = window.location.hash.replace("#", "");
+    if(currentHash === "") {
+      currentHash = "all"
+    }
+    filterAList.forEach((filterAElement) => {
+      if ( filterAElement.classList.contains(currentHash)) {
+        filterAElement.classList.add("selected")
+      } else {
+        filterAElement.classList.remove("selected")
+      }
+    })
+    // 보여지기 숨기기
+    let toDoListLis = toDoListUlTag.querySelectorAll("li");
+
+    if (currentHash === "all") {
+      toDoListLis.forEach((toDoListLi) => {
+        toDoListLi.classList.remove("hidden")
+      })
+    } else if (currentHash === "active") {
+      toDoListLis.forEach((toDoListLi) => {
+        if(toDoListLi.classList.contains("completed")) {
+          toDoListLi.classList.add("hidden")
+        } else {
+          toDoListLi.classList.remove("hidden")
+        }
+      })
+    } else if (currentHash === "completed") {
+      toDoListLis.forEach((toDoListLi) => {
+        if(toDoListLi.classList.contains("completed")) {
+          toDoListLi.classList.remove("hidden")
+        } else {
+          toDoListLi.classList.add("hidden")
+        }
+      })
+    }
   </script>
 </html>
