@@ -40,8 +40,9 @@
     const newToDoTitleInputTag = document.querySelector("#new-todo-title")
     const toDoListUlTag = document.querySelector("#todo-list")
 
+    // 새로운 목록 추가
     newToDoTitleInputTag.addEventListener("keyup", (event) => {
-      if (event.keyCode === 13) {
+      if(event.keyCode === 13) {
         //todo 이부분 수정 필요 https://velog.io/@seunghwan/JavaScript
         if(newToDoTitleInputTag.value !== "") {
           let li = document.createElement('li');
@@ -66,18 +67,38 @@
           li.append(editInput)
           toDoListUlTag.append(li)
 
-
+          // 체크박스 체크하기
           toggleInput.addEventListener("click", (event) => {
-            if (toggleInput.checked) {
+            if(toggleInput.checked) {
               li.classList.add("completed")
             } else {
               li.classList.remove("completed")
             }
           })
 
+          // 삭제하기
           destroyButton.addEventListener("click", (event) => {
             if(confirm("삭제하시겠습니까?")) {
               li.remove()
+            }
+          })
+
+          // 수정하기
+          li.addEventListener("dblclick", (event) => {
+            // todo 부정문 수정
+            if (!li.classList.contains("editing")) {
+              li.classList.add("editing")
+            }
+          })
+
+          editInput.addEventListener("keyup", (event) => {
+            if(event.keyCode === 13) {
+              li.classList.remove("editing")
+              label.innerText = editInput.value
+            }
+            if(event.keyCode === 27) {
+              li.classList.remove("editing")
+              editInput.value = label.innerText
             }
           })
 
