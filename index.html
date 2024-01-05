@@ -65,12 +65,19 @@
 
           li.append(editInput)
           toDoListUlTag.append(li)
+
+
           toggleInput.addEventListener("click", (event) => {
-            let li = toggleInput.closest('li')
             if (toggleInput.checked) {
               li.classList.add("completed")
             } else {
               li.classList.remove("completed")
+            }
+          })
+
+          destroyButton.addEventListener("click", (event) => {
+            if(confirm("삭제하시겠습니까?")) {
+              li.remove()
             }
           })
 
