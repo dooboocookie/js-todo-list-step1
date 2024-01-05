@@ -106,5 +106,16 @@
         }
       }
     })
+
+    //갯수 다시 세기
+    const recount = (mutationList, observer) => {
+      const count = toDoListUlTag.childElementCount
+      const countContent = document.querySelector(".count-container .todo-count strong");
+      countContent.innerText = count
+    }
+
+    const mutationObserver = new MutationObserver(recount);
+
+    mutationObserver.observe(toDoListUlTag, {childList: true})
   </script>
 </html>
