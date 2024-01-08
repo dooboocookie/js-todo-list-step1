@@ -16,16 +16,15 @@ class ToDoContentEditInput {
     addEditDoneEvent() {
         const parentLi = this.#element.closest("li");
         const label = parentLi.querySelector("label");
-        addKeyEvent("Enter", this.#element, () => {
+        addKeyEvent(this.#element, Key.ENTER, () => {
             parentLi.classList.remove("editing")
             label.innerText = this.#element.value
         });
-        addKeyEvent("Escape", this.#element, () => {
+        addKeyEvent(this.#element, Key.ESC, () => {
             parentLi.classList.remove("editing")
             this.#element.value = label.innerText
         });
     }
-
 
     get element() {
         return this.#element;

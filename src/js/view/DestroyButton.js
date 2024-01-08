@@ -13,7 +13,7 @@ class DestroyButton {
     }
 
     addRemoveEvent() {
-        this.#element.addEventListener("click", (event) => {
+        addClickEvent(this.#element, () => {
             const parentLi = this.#element.closest("li");
             if(confirm("삭제하시겠습니까?")) {
                 parentLi.remove();

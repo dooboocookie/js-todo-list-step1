@@ -14,7 +14,7 @@ class CheckBox {
     }
 
     addToggleEvent() {
-        this.#element.addEventListener("click", (event) => {
+        addClickEvent(this.#element, () => {
             const parentLi = this.#element.closest("li");
             if(this.#element.checked) {
                 parentLi.classList.add("completed")
@@ -23,7 +23,7 @@ class CheckBox {
             }
         })
 
-        this.#element.addEventListener("click", (event) => {
+        addClickEvent(this.#element, () => {
             filterToDoList();
         })
     }

@@ -1,28 +1,38 @@
-const toDoTitleInput = findByCssSelector("#new-todo-title")
-const toDoListUlTag = findByCssSelector("#todo-list")
+const toDoTitleInput = new ToDoTitleInput(findByCssSelector("#new-todo-title"));
+const toDoListUlTag = new ToDoListForm(findByCssSelector("#todo-list"));
 
 // 새로운 목록 추가
-addKeyEvent("Enter", toDoTitleInput, () => {
-    //todo 이부분 수정 필요 https://velog.io/@seunghwan/JavaScript
-    if(toDoTitleInput.value !== "") {
-        const toDoItemForm = ToDoItemForm.init(toDoTitleInput.value);
-        toDoItemForm.addEditStartEvent();
-        const element = toDoItemForm.element;
-        toDoListUlTag.append(element);
-        toDoTitleInput.value = null
-    }
-})
+toDoTitleInput.addRegisterNewToDoEvent(toDoListUlTag);
+
+
+
+
+
+
+
+
+
+
 
 //갯수 다시 세기
 const recount = (mutationList, observer) => {
-    const count = toDoListUlTag.querySelectorAll("li:not(.hidden)").length
-    const countContent = document.querySelector(".count-container .todo-count strong");
+    const count = toDoListUlTag.element.querySelectorAll("li:not(.hidden)").length
+    const countContent = findByCssSelector(".count-container .todo-count strong");
     countContent.innerText = count
 }
 
 const mutationObserver = new MutationObserver(recount)
+mutationObserver.observe(toDoListUlTag.element, {childList: true})
 
-mutationObserver.observe(toDoListUlTag, {childList: true})
+
+
+
+
+
+
+
+
+
 
 // 프래그먼트 식별자에 따라 보여지기
 const filtersUl = document.querySelector(".filters");
@@ -44,15 +54,15 @@ const filterToDoList = function() {
 
     switch(currentHash) {
         case "active":
-            showNodes(toDoListUlTag.querySelectorAll("li:not(.completed)"));
-            hideNodes(toDoListUlTag.querySelectorAll("li.completed"));
+            showNodes(toDoListUlTag.element.querySelectorAll("li:not(.completed)"));
+            hideNodes(toDoListUlTag.element.querySelectorAll("li.completed"));
             break;
         case "completed":
-            showNodes(toDoListUlTag.querySelectorAll("li.completed"));
-            hideNodes(toDoListUlTag.querySelectorAll("li:not(.completed)"));
+            showNodes(toDoListUlTag.element.querySelectorAll("li.completed"));
+            hideNodes(toDoListUlTag.element.querySelectorAll("li:not(.completed)"));
             break;
         default:
-            showNodes(toDoListUlTag.querySelectorAll("li"));
+            showNodes(toDoListUlTag.element.querySelectorAll("li"));
             break;
     }
     recount()
@@ -64,7 +74,7 @@ function showNodes(nodeList) {
     });
 }
 
-const hideNodes = function(nodeList) {
+function hideNodes(nodeList) {
     nodeList.forEach((node) => {
         node.classList.add("hidden");
     });
@@ -77,4 +87,4 @@ window.addEventListener("hashchange", (event) => {
 
 // 새로 입력될 때
 const filteringObserver = new MutationObserver(filterToDoList);
-filteringObserver.observe(toDoListUlTag, {childList: true});
+filteringObserver.observe(toDoListUlTag.element, {childList: true});

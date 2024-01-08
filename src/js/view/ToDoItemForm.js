@@ -30,7 +30,7 @@ class ToDoItemForm {
     }
 
     addEditStartEvent() {
-        this.#element.addEventListener("dblclick", (event) => {
+        addDoubleClickEvent(this.#element, () => {
             if (!this.#element.classList.contains("editing")) {
                 this.#element.classList.add("editing")
             }
