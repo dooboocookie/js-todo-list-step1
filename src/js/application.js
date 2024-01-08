@@ -1,40 +1,10 @@
 const toDoTitleInput = new ToDoTitleInput(findByCssSelector("#new-todo-title"));
 const toDoListUlTag = new ToDoListTemplate(findByCssSelector("#todo-list"));
-
 // 새로운 목록 추가
 toDoTitleInput.addRegisterNewToDoEvent(toDoListUlTag);
-
-
-
-
-
-
-
-
-
-
-
-//갯수 다시 세기
-const recount = (mutationList, observer) => {
-    const count = toDoListUlTag.element.querySelectorAll("li:not(.hidden)").length
-    const countContent = findByCssSelector(".count-container .todo-count strong");
-    countContent.innerText = count
-}
-
-const mutationObserver = new MutationObserver(recount)
-mutationObserver.observe(toDoListUlTag.element, {childList: true})
-
-
-
-
-
-
-
-
-
-
-
-// 프래그먼트 식별자에 따라 보여지기
+//개수 세기
+toDoListUlTag.addCountObserver();
+// 필터링
 const filtersUl = document.querySelector(".filters");
 const filterAList = filtersUl.querySelectorAll("li a");
 
@@ -65,7 +35,9 @@ const filterToDoList = function() {
             showNodes(toDoListUlTag.element.querySelectorAll("li"));
             break;
     }
-    recount()
+
+    const counter = findByCssSelector(".count-container .todo-count strong");
+    counter.innerText = toDoListUlTag.count()
 }
 
 function showNodes(nodeList) {
