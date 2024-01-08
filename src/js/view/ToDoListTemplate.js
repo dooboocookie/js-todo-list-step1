@@ -1,4 +1,4 @@
-class ToDoListForm {
+class ToDoListTemplate {
     #element;
 
     constructor(element) {
@@ -7,6 +7,26 @@ class ToDoListForm {
 
     add(toDoItemForm) {
         this.#element.append(toDoItemForm.element);
+    }
+
+    countActive() {
+
+    }
+
+    countAll() {
+
+    }
+
+    hideActive() {
+
+    }
+
+    hideCompleted() {
+
+    }
+
+    showAll() {
+
     }
 
     get element() {

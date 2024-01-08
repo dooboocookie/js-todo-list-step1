@@ -1,5 +1,5 @@
 const toDoTitleInput = new ToDoTitleInput(findByCssSelector("#new-todo-title"));
-const toDoListUlTag = new ToDoListForm(findByCssSelector("#todo-list"));
+const toDoListUlTag = new ToDoListTemplate(findByCssSelector("#todo-list"));
 
 // 새로운 목록 추가
 toDoTitleInput.addRegisterNewToDoEvent(toDoListUlTag);

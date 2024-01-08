@@ -13,21 +13,16 @@ class CheckBox {
         return new CheckBox(checkBox);
     }
 
-    addToggleEvent() {
+    addToggleEvent(toDoItemTemplate) {
+        console.log(toDoItemTemplate);
         addClickEvent(this.#element, () => {
-            const parentLi = this.#element.closest("li");
-            if(this.#element.checked) {
-                parentLi.classList.add("completed")
-            } else {
-                parentLi.classList.remove("completed");
-            }
+            toDoItemTemplate = toDoItemTemplate.toggle();
         })
 
         addClickEvent(this.#element, () => {
             filterToDoList();
         })
     }
-
 
     get element() {
         return this.#element;

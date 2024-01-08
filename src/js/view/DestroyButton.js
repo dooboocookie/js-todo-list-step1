@@ -5,7 +5,7 @@ class DestroyButton {
         this.#element = element;
     }
 
-    static init(parent) {
+    static init() {
         const destroyButton = new ElementBuilder("button")
             .addClass("destroy").build();
 

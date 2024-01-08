@@ -16,7 +16,7 @@ class ToDoTitleInput {
     addRegisterNewToDoEvent(toDoListForm) {
         addKeyEvent(this.#element, Key.ENTER, () => {
             if(this.isNotEmpty()) {
-                const toDoItemForm = ToDoItemForm.init(this.getInputValue());
+                const toDoItemForm = ActiveItemTemplate.init(this.getInputValue());
                 toDoItemForm.addEditStartEvent();
                 toDoListForm.add(toDoItemForm);
                 this.clear();

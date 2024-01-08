@@ -5,13 +5,12 @@ class ToDoContent {
         this.#element = element;
     }
 
-    static init(content, parent) {
+    static init(content) {
         const toDoContent = new ElementBuilder("label")
             .innerText(content).build();
 
         return new ToDoContent(toDoContent);
     }
-
 
     get element() {
         return this.#element;

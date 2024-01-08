@@ -1,8 +1,8 @@
-class ToDoItemForm {
-    #element;
+class ActiveItemTemplate extends ToDoItemTemplate {
 
     constructor(element) {
-        this.#element = element;
+        super(element);
+        this.element.classList.remove("completed");
     }
 
     static init(content) {
@@ -19,26 +19,19 @@ class ToDoItemForm {
         const destroyButton = DestroyButton.init();
         viewDiv.append(destroyButton.element);
 
-        checkBox.addToggleEvent();
         destroyButton.addRemoveEvent();
-
         const editInput = ToDoContentEditInput.init(content);
+
         todoItem.append(editInput.element);
         editInput.addEditDoneEvent();
 
-        return new ToDoItemForm(todoItem);
+        const activeItemTemplate = new ActiveItemTemplate(todoItem);
+        checkBox.addToggleEvent(activeItemTemplate);
+
+        return activeItemTemplate;
     }
 
-    addEditStartEvent() {
-        addDoubleClickEvent(this.#element, () => {
-            if (!this.#element.classList.contains("editing")) {
-                this.#element.classList.add("editing")
-            }
-        })
-    }
-
-
-    get element() {
-        return this.#element;
+    toggle() {
+        return new CompleteItemTemplate(this.element);
     }
 }
