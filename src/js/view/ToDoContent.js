@@ -12,6 +12,15 @@ class ToDoContent {
         return new ToDoContent(toDoContent);
     }
 
+    edit(value) {
+        console.log(value)
+        this.#element.innerText = value;
+    }
+
+    getValue() {
+        return this.#element.innerText
+    }
+
     get element() {
         return this.#element;
     }

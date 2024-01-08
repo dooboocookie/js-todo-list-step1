@@ -13,16 +13,14 @@ class ToDoContentEditInput {
         return new ToDoContentEditInput(toDoContentEditInput);
     }
 
-    addEditDoneEvent() {
-        const parentLi = this.#element.closest("li");
-        const label = parentLi.querySelector("label");
+    addEditDoneEvent(toDoItemTemplate, toDoContent) {
         addKeyEvent(this.#element, Key.ENTER, () => {
-            parentLi.classList.remove("editing")
-            label.innerText = this.#element.value
+            toDoItemTemplate.endEdit();
+            toDoContent.edit(this.#element.value);
         });
         addKeyEvent(this.#element, Key.ESC, () => {
-            parentLi.classList.remove("editing")
-            this.#element.value = label.innerText
+            toDoItemTemplate.endEdit();
+            this.#element.value = toDoContent.getValue();
         });
     }
 

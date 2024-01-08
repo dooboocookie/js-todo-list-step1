@@ -21,12 +21,11 @@ class ActiveItemTemplate extends ToDoItemTemplate {
 
         destroyButton.addRemoveEvent();
         const editInput = ToDoContentEditInput.init(content);
-
         todoItem.append(editInput.element);
-        editInput.addEditDoneEvent();
 
         const activeItemTemplate = new ActiveItemTemplate(todoItem);
         checkBox.addToggleEvent(activeItemTemplate);
+        editInput.addEditDoneEvent(activeItemTemplate, toDoContent);
 
         return activeItemTemplate;
     }

@@ -13,6 +13,10 @@ class ToDoItemTemplate {
         })
     }
 
+    endEdit() {
+        this.#element.classList.remove("editing");
+    }
+
     toggle() {
         throw "사용할 수 없는 함수입니다.";
     }
