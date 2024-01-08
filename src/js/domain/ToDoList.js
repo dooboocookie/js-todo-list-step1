@@ -5,16 +5,16 @@ class ToDoList {
         this.#toDoItems = toDoItems;
     }
 
-    public addItem(toDoItem) {
+    addItem(toDoItem) {
         this.#toDoItems.push(toDoItem)
     }
 
     //todo js의 컬렉션은 없는것인가?
-    public removeItem(toDoItem) {
+    removeItem(toDoItem) {
         this.#toDoItems.filter(item => item !== toDoItem)
     }
 
-    public get toDoItems() {
+    get toDoItems() {
         return this.#toDoItems;
     }
 }
