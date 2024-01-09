@@ -1,6 +1,6 @@
 export class ToDoItem {
-  private readonly _content;
-  private readonly _isCompleted;
+  private readonly _content: string;
+  private readonly _isCompleted: boolean;
 
   public constructor(content: string, isCompleted: boolean) {
     if (isCompleted === null) {
@@ -10,11 +10,11 @@ export class ToDoItem {
     this._isCompleted = isCompleted;
   }
 
-  public get content() {
+  public get content(): string {
     return this._content;
   }
 
-  public get isCompleted() {
+  public get isCompleted(): boolean {
     return this._isCompleted;
   }
 }

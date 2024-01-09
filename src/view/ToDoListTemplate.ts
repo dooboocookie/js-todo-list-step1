@@ -1,4 +1,7 @@
-import { findByCssSelector } from "../common/utils/querySelector";
+import {
+  findByCssSelector,
+  findChildrenByCssSelector,
+} from "../common/utils/querySelector";
 import { ToDoItemTemplate } from "./todoitem/ToDoItemTemplate";
 
 export class ToDoListTemplate {
@@ -28,5 +31,43 @@ export class ToDoListTemplate {
 
   public get element(): HTMLElement {
     return this._element;
+  }
+
+  public addFilterObserver(toDoListTemplate: ToDoListTemplate) {}
+
+  public filter(filterKeyword: string): void {
+    switch (filterKeyword) {
+      case "active":
+        this.showNodes(
+          findChildrenByCssSelector(this._element, "li:not(.completed)"),
+        );
+        this.hideNodes(
+          findChildrenByCssSelector(this._element, "li.completed"),
+        );
+        break;
+      case "completed":
+        this.showNodes(
+          findChildrenByCssSelector(this._element, "li.completed"),
+        );
+        this.hideNodes(
+          findChildrenByCssSelector(this._element, "li:not(.completed)"),
+        );
+        break;
+      default:
+        this.showNodes(findChildrenByCssSelector(this._element, "li"));
+        break;
+    }
+  }
+
+  private showNodes(elements: HTMLElement[]) {
+    elements.forEach((element) => {
+      element.classList.remove("hidden");
+    });
+  }
+
+  private hideNodes(elements: HTMLElement[]) {
+    elements.forEach((element) => {
+      element.classList.add("hidden");
+    });
   }
 }
