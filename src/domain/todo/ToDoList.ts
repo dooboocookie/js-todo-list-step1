@@ -11,16 +11,20 @@ export class ToDoList {
     this._toDoItems.push(toDoItem);
   }
 
-  public removeItem(toDoItem: ToDoItem) {
-    this._toDoItems.filter((item) => item !== toDoItem);
+  public removeItem(index: number) {
+    this._toDoItems.splice(index, 1);
   }
 
-  public filter(isCompleted: boolean): ToDoList {
-    const toDoItems = this._toDoItems.filter((toDoItem) => {
+  public editItem(index: number, editContent: string) {
+    this._toDoItems[index].edit(editContent);
+  }
+
+  public filterByCompleted(isCompleted: boolean): ToDoItem[] {
+    return this._toDoItems.filter((toDoItem) => {
       return toDoItem.isCompleted === isCompleted;
     });
-    return new ToDoList(toDoItems);
   }
+
   public get toDoItems() {
     return this._toDoItems;
   }
