@@ -1,4 +1,4 @@
-import { ToDoItem } from "./TodoItem";
+import { TodoItem } from "./TodoItem";
 
 describe("TodoItem", () => {
   it("내용과 완료 여부를 입력 받아 생성한다", () => {
@@ -6,7 +6,7 @@ describe("TodoItem", () => {
     const inputContent = "내용입니다";
     const inputCompleted = false;
     //when
-    const actual = new ToDoItem(inputContent, inputCompleted);
+    const actual = new TodoItem(inputContent, inputCompleted);
     //then
     expect(actual.content).toBe(inputContent);
   });
@@ -17,7 +17,7 @@ describe("TodoItem", () => {
     const inputCompleted = false;
     //when & then
     expect(() => {
-      new ToDoItem(inputContent, inputCompleted);
+      new TodoItem(inputContent, inputCompleted);
     }).toThrow(new Error("값이 존재하지 않습니다."));
   });
 
@@ -25,7 +25,7 @@ describe("TodoItem", () => {
     //given
     const inputContent = "내용입니다";
     const inputCompleted = false;
-    const toDoItem = new ToDoItem(inputContent, inputCompleted);
+    const toDoItem = new TodoItem(inputContent, inputCompleted);
     //when
     toDoItem.switchCompleted();
     const actual = toDoItem.isCompleted;
@@ -37,7 +37,7 @@ describe("TodoItem", () => {
     //given
     const inputContent = "내용입니다";
     const inputCompleted = false;
-    const toDoItem = new ToDoItem(inputContent, inputCompleted);
+    const toDoItem = new TodoItem(inputContent, inputCompleted);
     const expected = "변경된 내용입니다";
     //when
     toDoItem.edit(expected);
@@ -50,7 +50,7 @@ describe("TodoItem", () => {
     //given
     const inputContent = "내용입니다";
     const inputCompleted = false;
-    const toDoItem = new ToDoItem(inputContent, inputCompleted);
+    const toDoItem = new TodoItem(inputContent, inputCompleted);
     const empty = "";
     //when & then
     expect(() => {

@@ -6,13 +6,21 @@ import { ToDoItemTemplate } from "./todoitem/ToDoItemTemplate";
 
 export class ToDoListTemplate {
   private readonly _element: HTMLElement;
+  private readonly todoItemContainers: ToDoItemTemplate[];
 
   public constructor(element: HTMLElement) {
     this._element = element;
+    this.todoItemContainers = [];
+  }
+
+  public toggleItem(index: number) {
+    const target = findChildrenByCssSelector(this.element, "li");
+    this.todoItemContainers[index] = this.todoItemContainers[index].toggle();
   }
 
   public add(toDoItemTemplate: ToDoItemTemplate) {
     this._element.append(toDoItemTemplate.element);
+    this.todoItemContainers.push(toDoItemTemplate);
   }
 
   public addCountObserver() {
@@ -27,10 +35,6 @@ export class ToDoListTemplate {
 
   public count(): number {
     return this._element.querySelectorAll("li:not(.hidden)").length;
-  }
-
-  public get element(): HTMLElement {
-    return this._element;
   }
 
   public addFilterObserver(toDoListTemplate: ToDoListTemplate) {}
@@ -69,5 +73,9 @@ export class ToDoListTemplate {
     elements.forEach((element) => {
       element.classList.add("hidden");
     });
+  }
+
+  public get element(): HTMLElement {
+    return this._element;
   }
 }

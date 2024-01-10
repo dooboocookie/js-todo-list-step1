@@ -1,4 +1,4 @@
-export class ToDoItem {
+export class TodoItem {
   private _content: string;
   private _isCompleted: boolean;
 

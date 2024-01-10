@@ -1,43 +1,49 @@
-import { ToDoItemTemplate } from "./todoitem/ToDoItemTemplate";
-import { ToDoContent } from "./ToDoContent";
 import { addKeyEvent } from "../common/utils/Event";
 import Key from "../common/constants/Key";
 import { ElementBuilder } from "../common/utils/ElementBuilder";
 
 export class ToDoContentEditInput {
   private readonly _element: HTMLElement;
+  private readonly _onSubmit: (content: string) => void;
+  private readonly _onCancel: () => void;
 
-  private constructor(element: HTMLElement) {
+  constructor(
+    element: HTMLElement,
+    onSubmit: (content: string) => void,
+    onCancel: () => void,
+  ) {
     this._element = element;
+    this._onSubmit = onSubmit;
+    this._onCancel = onCancel;
   }
 
-  public get element() {
-    return this._element;
-  }
-
-  public static init(content: string): ToDoContentEditInput {
+  public static init(
+    content: string,
+    onSubmit: (content: string) => void,
+    onCancel: () => void,
+  ): ToDoContentEditInput {
     const toDoContentEditInput = ElementBuilder.init("input")
       .addClass("edit")
       .value(content)
       .build();
 
-    return new ToDoContentEditInput(toDoContentEditInput);
+    return new ToDoContentEditInput(toDoContentEditInput, onSubmit, onCancel);
   }
 
-  public addEditDoneEvent(
-    toDoItemTemplate: ToDoItemTemplate,
-    toDoContent: ToDoContent,
-  ) {
+  private addEditDoneEvent() {
     addKeyEvent(this._element, Key.ENTER, () => {
-      //todo 여기서도 파라미터로 받은 내용에 대한 상태변경은 좋지 않음
-      toDoItemTemplate.endEdit();
       const input = this._element as HTMLInputElement;
-      toDoContent.edit(input.value);
+      this._onSubmit(input.value);
     });
+  }
+
+  private addEditCancelEvent() {
     addKeyEvent(this._element, Key.ESC, () => {
-      toDoItemTemplate.endEdit();
-      const input = this._element as HTMLInputElement;
-      input.value = toDoContent.getValue();
+      this._onCancel();
     });
+  }
+
+  public get element() {
+    return this._element;
   }
 }

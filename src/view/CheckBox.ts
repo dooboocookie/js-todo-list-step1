@@ -1,36 +1,35 @@
-import { ToDoItemTemplate } from "./todoitem/ToDoItemTemplate";
 import { addClickEvent } from "../common/utils/Event";
 import { ElementBuilder } from "../common/utils/ElementBuilder";
 
 export class CheckBox {
   private readonly _element: HTMLElement;
+  private readonly _onClick: (element: HTMLElement) => void;
 
-  private constructor(element: HTMLElement) {
+  private constructor(
+    element: HTMLElement,
+    onClick: (element: HTMLElement) => void,
+  ) {
     this._element = element;
+    this.addToggleEvent();
+    this._onClick = onClick;
   }
 
-  public get element() {
-    return this._element;
-  }
-
-  public static init() {
+  public static init(onClick: (element: HTMLElement) => void) {
     const checkBox = ElementBuilder.init("input")
       .addClass("toggle")
       .type("checkbox")
       .build();
 
-    return new CheckBox(checkBox);
+    return new CheckBox(checkBox, onClick);
   }
 
-  public addToggleEvent(toDoItemTemplate: ToDoItemTemplate) {
-    console.log(toDoItemTemplate);
+  private addToggleEvent() {
     addClickEvent(this._element, () => {
-      //todo 파라미터로 넘겨준 변수 재할당하거나 상태를 변화시키는 것은 so bad...
-      toDoItemTemplate = toDoItemTemplate.toggle();
+      this._onClick(this._element);
     });
+  }
 
-    addClickEvent(this._element, () => {
-      //filterToDoList();
-    });
+  public get element() {
+    return this._element;
   }
 }

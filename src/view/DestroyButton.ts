@@ -3,31 +3,35 @@ import { ElementBuilder } from "../common/utils/ElementBuilder";
 
 export class DestroyButton {
   private readonly _element: HTMLElement;
+  private readonly _onClick: () => void;
 
-  private constructor(element: HTMLElement) {
+  private constructor(element: HTMLElement, onClick: () => void) {
     this._element = element;
+    this.addRemoveEvent();
+    this._onClick = onClick;
+  }
+
+  public static init(onClick: () => void) {
+    const destroyButton = ElementBuilder.init("button")
+      .addClass("destroy")
+      .build();
+
+    return new DestroyButton(destroyButton, onClick);
   }
 
   public get element() {
     return this._element;
   }
 
-  public static init() {
-    const destroyButton = ElementBuilder.init("button")
-      .addClass("destroy")
-      .build();
-
-    return new DestroyButton(destroyButton);
-  }
-
-  public addRemoveEvent() {
+  private addRemoveEvent() {
     addClickEvent(this._element, () => {
-      const parentLi = this._element.closest("li");
-      if (confirm("삭제하시겠습니까?")) {
-        if (parentLi !== null) {
-          parentLi.remove();
-        }
-      }
+      this._onClick();
     });
   }
 }
+// const parentLi = this._element.closest("li");
+// if (confirm("삭제하시겠습니까?")) {
+//   if (parentLi !== null) {
+//     parentLi.remove();
+//   }
+// }

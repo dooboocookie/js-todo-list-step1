@@ -13,18 +13,32 @@ export function findChildrenByCssSelector(
   element: HTMLElement,
   cssSelector: string,
 ): HTMLElement[] {
-  const nodes = document.querySelectorAll(cssSelector);
-  if (nodes === null || nodes.length === 0) {
+  const children = element.querySelectorAll(cssSelector);
+  if (children === null || children.length === 0) {
     throw "찾을 수 없는 요소입니다.";
   }
   const elements: HTMLElement[] = [];
-  nodes.forEach((element) => {
-    if (element instanceof HTMLElement) {
-      elements.push(element);
+  children.forEach((child) => {
+    if (child instanceof HTMLElement) {
+      elements.push(child);
     }
   });
-  if (nodes.length !== elements.length) {
+  if (children.length !== elements.length) {
     throw "HTML 요소가 아닙니다";
   }
   return elements;
+}
+
+export function findParentByCssSelector(
+  element: HTMLElement,
+  cssSelector: string,
+): HTMLElement {
+  const parent = element.closest(cssSelector);
+  if (parent == null) {
+    throw "찾을 수 없는 부모 요소입니다.";
+  }
+  if (parent instanceof HTMLElement) {
+    return parent;
+  }
+  throw "HTML 요소가 아닙니다";
 }
