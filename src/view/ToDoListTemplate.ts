@@ -3,14 +3,56 @@ import {
   findChildrenByCssSelector,
 } from "../common/utils/querySelector";
 import { ToDoItemTemplate } from "./todoitem/ToDoItemTemplate";
+import { TodoList } from "../domain/todo/TodoList";
+import { CompleteItemTemplate } from "./todoitem/CompleteItemTemplate";
+import { ActiveItemTemplate } from "./todoitem/ActiveItemTemplate";
 
 export class ToDoListTemplate {
   private readonly _element: HTMLElement;
   private readonly todoItemContainers: ToDoItemTemplate[];
+  private readonly _onClickCheckbox: (element: HTMLElement) => void;
+  private readonly _onClickDestroyButton: (element: HTMLElement) => void;
+  private readonly _onEnterEditInput: (
+    content: string,
+    element: HTMLElement,
+  ) => void;
+  private readonly _onEscEditInput: () => void;
 
-  public constructor(element: HTMLElement) {
+  constructor(
+    element: HTMLElement,
+    onClickCheckbox: (element: HTMLElement) => void,
+    onClickDestroyButton: (element: HTMLElement) => void,
+    onEnterEditInput: (content: string, element: HTMLElement) => void,
+    onEscEditInput: () => void,
+  ) {
     this._element = element;
     this.todoItemContainers = [];
+    this._onClickCheckbox = onClickCheckbox;
+    this._onClickDestroyButton = onClickDestroyButton;
+    this._onEnterEditInput = onEnterEditInput;
+    this._onEscEditInput = onEscEditInput;
+  }
+
+  // todo 최대한 불변으로 만들어야되나?
+  public update(todoList: TodoList) {
+    this._element.innerHTML = "";
+    this.todoItemContainers.splice(0, this.todoItemContainers.length);
+
+    const toDoItems = todoList.toDoItems;
+    toDoItems.forEach((toDoItem) => {
+      const itemTemplate = ActiveItemTemplate.init(
+        toDoItem.content,
+        this._onClickCheckbox,
+        this._onClickDestroyButton,
+        this._onEnterEditInput,
+        this._onEscEditInput,
+      );
+      if (toDoItem.isCompleted) {
+        itemTemplate.toggle();
+      }
+      this._element.append(itemTemplate.element);
+      this.todoItemContainers.push(itemTemplate);
+    });
   }
 
   public add(toDoItemTemplate: ToDoItemTemplate) {

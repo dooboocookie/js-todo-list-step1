@@ -12,7 +12,7 @@ export class ActiveItemTemplate extends ToDoItemTemplate {
     element: HTMLElement,
     onClickCheckbox: (element: HTMLElement) => void,
     onClickDestroyButton: (element: HTMLElement) => void,
-    onEnterEditInput: (content: string) => void,
+    onEnterEditInput: (content: string, element: HTMLElement) => void,
     onEscEditInput: () => void,
   ) {
     super(
@@ -29,7 +29,7 @@ export class ActiveItemTemplate extends ToDoItemTemplate {
     content: string,
     onClickCheckbox: (element: HTMLElement) => void,
     onClickDestroyButton: (element: HTMLElement) => void,
-    onEnterEditInput: (content: string) => void,
+    onEnterEditInput: (content: string, element: HTMLElement) => void,
     onEscEditInput: () => void,
   ): ActiveItemTemplate {
     const todoItem = ElementBuilder.init("li").build();

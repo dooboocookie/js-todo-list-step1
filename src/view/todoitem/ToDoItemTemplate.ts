@@ -5,14 +5,17 @@ export class ToDoItemTemplate {
   protected _element: HTMLElement;
   protected readonly _onClickCheckbox: (element: HTMLElement) => void;
   protected readonly _onClickDestroyButton: (element: HTMLElement) => void;
-  protected readonly _onEnterEditInput: (content: string) => void;
+  protected readonly _onEnterEditInput: (
+    content: string,
+    element: HTMLElement,
+  ) => void;
   protected readonly _onEscEditInput: () => void;
 
   constructor(
     element: HTMLElement,
     onClickCheckbox: (element: HTMLElement) => void,
     onClickDestroyButton: (element: HTMLElement) => void,
-    onEnterEditInput: (content: string) => void,
+    onEnterEditInput: (content: string, element: HTMLElement) => void,
     onEscEditInput: () => void,
   ) {
     this._element = element;

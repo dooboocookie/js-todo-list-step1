@@ -6,7 +6,7 @@ export class CompleteItemTemplate extends ToDoItemTemplate {
     element: HTMLElement,
     onClickCheckbox: (element: HTMLElement) => void,
     onClickDestroyButton: (element: HTMLElement) => void,
-    onEnterEditInput: (content: string) => void,
+    onEnterEditInput: (content: string, element: HTMLElement) => void,
     onEscEditInput: () => void,
   ) {
     super(
