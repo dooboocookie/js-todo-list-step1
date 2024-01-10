@@ -2,7 +2,7 @@ import { addKeyEvent } from "../common/utils/Event";
 import Key from "../common/constants/Key";
 import { ElementBuilder } from "../common/utils/ElementBuilder";
 
-export class ToDoContentEditInput {
+export class EditInput {
   private readonly _element: HTMLElement;
   private readonly _onSubmit: (content: string, element: HTMLElement) => void;
   private readonly _onCancel: () => void;
@@ -13,25 +13,24 @@ export class ToDoContentEditInput {
     onCancel: () => void,
   ) {
     this._element = element;
+    this._onSubmit = onSubmit;
+    this._onCancel = onCancel;
 
     this.addEditDoneEvent();
     this.addEditCancelEvent();
-
-    this._onSubmit = onSubmit;
-    this._onCancel = onCancel;
   }
 
   public static init(
     content: string,
     onSubmit: (content: string, element: HTMLElement) => void,
     onCancel: () => void,
-  ): ToDoContentEditInput {
+  ): EditInput {
     const toDoContentEditInput = ElementBuilder.init("input")
       .addClass("edit")
       .value(content)
       .build();
 
-    return new ToDoContentEditInput(toDoContentEditInput, onSubmit, onCancel);
+    return new EditInput(toDoContentEditInput, onSubmit, onCancel);
   }
 
   private addEditDoneEvent() {

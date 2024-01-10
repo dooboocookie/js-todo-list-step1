@@ -1,6 +1,6 @@
 import { ElementBuilder } from "../common/utils/ElementBuilder";
 
-export class ToDoContent {
+export class Content {
   private readonly _element: HTMLElement;
 
   private constructor(element: HTMLElement) {
@@ -13,16 +13,6 @@ export class ToDoContent {
 
   public static init(content: string) {
     const toDoContent = ElementBuilder.init("label").innerText(content).build();
-
-    return new ToDoContent(toDoContent);
-  }
-
-  public edit(value: string) {
-    console.log(value);
-    this._element.innerText = value;
-  }
-
-  public getValue() {
-    return this._element.innerText;
+    return new Content(toDoContent);
   }
 }

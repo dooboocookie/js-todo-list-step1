@@ -1,8 +1,8 @@
-import { ToDoItemTemplate } from "./ToDoItemTemplate";
-import { ActiveItemTemplate } from "./ActiveItemTemplate";
+import { TodoContainer } from "./TodoContainer";
+import { ActiveTodoContainer } from "./ActiveTodoContainer";
 
-export class CompleteItemTemplate extends ToDoItemTemplate {
-  constructor(
+export class CompleteTodoContainer extends TodoContainer {
+  public constructor(
     element: HTMLElement,
     onClickCheckbox: (element: HTMLElement) => void,
     onClickDestroyButton: (element: HTMLElement) => void,
@@ -19,8 +19,8 @@ export class CompleteItemTemplate extends ToDoItemTemplate {
     super.element.classList.add("completed");
   }
 
-  override toggle(): ToDoItemTemplate {
-    return new ActiveItemTemplate(
+  public override toggle(): TodoContainer {
+    return new ActiveTodoContainer(
       this.element,
       this._onClickDestroyButton,
       this._onClickDestroyButton,

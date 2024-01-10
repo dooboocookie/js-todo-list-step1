@@ -1,14 +1,14 @@
-import { ToDoItemTemplate } from "./ToDoItemTemplate";
+import { TodoContainer } from "./TodoContainer";
 import { CheckBox } from "../CheckBox";
-import { ToDoContent } from "../ToDoContent";
+import { Content } from "../Content";
 import { DestroyButton } from "../DestroyButton";
-import { ToDoContentEditInput } from "../ToDoContentEditInput";
+import { EditInput } from "../EditInput";
 import { ElementBuilder } from "../../common/utils/ElementBuilder";
-import { CompleteItemTemplate } from "./CompleteItemTemplate";
+import { CompleteTodoContainer } from "./CompleteTodoContainer";
 
 //todo 상속하려니까 접근제어자가 이상해진다. 조합으로 바꾸자 => 조금만 나중에
-export class ActiveItemTemplate extends ToDoItemTemplate {
-  constructor(
+export class ActiveTodoContainer extends TodoContainer {
+  public constructor(
     element: HTMLElement,
     onClickCheckbox: (element: HTMLElement) => void,
     onClickDestroyButton: (element: HTMLElement) => void,
@@ -31,17 +31,13 @@ export class ActiveItemTemplate extends ToDoItemTemplate {
     onClickDestroyButton: (element: HTMLElement) => void,
     onEnterEditInput: (content: string, element: HTMLElement) => void,
     onEscEditInput: () => void,
-  ): ActiveItemTemplate {
+  ): ActiveTodoContainer {
     const todoItem = ElementBuilder.init("li").build();
     const viewDiv = ElementBuilder.init("div").addClass("view").build();
     const checkBox = CheckBox.init(onClickCheckbox);
-    const toDoContent = ToDoContent.init(content);
+    const toDoContent = Content.init(content);
     const destroyButton = DestroyButton.init(onClickDestroyButton);
-    const editInput = ToDoContentEditInput.init(
-      content,
-      onEnterEditInput,
-      onEscEditInput,
-    );
+    const editInput = EditInput.init(content, onEnterEditInput, onEscEditInput);
 
     todoItem.append(viewDiv);
     viewDiv.append(checkBox.element);
@@ -49,7 +45,7 @@ export class ActiveItemTemplate extends ToDoItemTemplate {
     viewDiv.append(destroyButton.element);
     todoItem.append(editInput.element);
 
-    return new ActiveItemTemplate(
+    return new ActiveTodoContainer(
       todoItem,
       onClickCheckbox,
       onClickDestroyButton,
@@ -58,8 +54,8 @@ export class ActiveItemTemplate extends ToDoItemTemplate {
     );
   }
 
-  public override toggle(): ToDoItemTemplate {
-    return new CompleteItemTemplate(
+  public override toggle(): TodoContainer {
+    return new CompleteTodoContainer(
       this.element,
       this._onClickDestroyButton,
       this._onClickDestroyButton,

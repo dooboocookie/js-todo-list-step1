@@ -1,6 +1,6 @@
 import { addDoubleClickEvent } from "../../common/utils/Event";
 
-export class ToDoItemTemplate {
+export class TodoContainer {
   //todo 상속하려니까 접근제어자가 이상해진다. 조합으로 바꾸자
   protected _element: HTMLElement;
   protected readonly _onClickCheckbox: (element: HTMLElement) => void;
@@ -11,7 +11,7 @@ export class ToDoItemTemplate {
   ) => void;
   protected readonly _onEscEditInput: () => void;
 
-  constructor(
+  protected constructor(
     element: HTMLElement,
     onClickCheckbox: (element: HTMLElement) => void,
     onClickDestroyButton: (element: HTMLElement) => void,
@@ -34,12 +34,12 @@ export class ToDoItemTemplate {
     });
   }
 
-  endEdit() {
-    this._element.classList.remove("editing");
+  public toggle(): TodoContainer {
+    throw "사용할 수 없는 함수입니다.";
   }
 
-  toggle(): ToDoItemTemplate {
-    throw "사용할 수 없는 함수입니다.";
+  public hide() {
+    this.element.classList.add("hidden");
   }
 
   public get element() {

@@ -34,6 +34,10 @@ export class TodoList {
     });
   }
 
+  public toStorage() {
+    return JSON.stringify(this._toDoItems);
+  }
+
   public get toDoItems() {
     return this._toDoItems;
   }
