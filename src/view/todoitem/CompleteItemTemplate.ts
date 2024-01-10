@@ -4,8 +4,8 @@ import { ActiveItemTemplate } from "./ActiveItemTemplate";
 export class CompleteItemTemplate extends ToDoItemTemplate {
   constructor(
     element: HTMLElement,
-    onClickCheckbox: () => void,
-    onClickDestroyButton: () => void,
+    onClickCheckbox: (element: HTMLElement) => void,
+    onClickDestroyButton: (element: HTMLElement) => void,
     onEnterEditInput: (content: string) => void,
     onEscEditInput: () => void,
   ) {

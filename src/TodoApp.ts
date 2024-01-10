@@ -32,6 +32,7 @@ export class TodoApp {
     return toDoListTemplate;
   }
 
+  // todo 이건 this 왜 돼?????????????
   private initTodoInput() {
     const inputElement = findByCssSelector("#new-todo-title");
     return new Input(inputElement, (value: string) => {
@@ -54,7 +55,7 @@ export class TodoApp {
 
   // todo 와............. 이거 this 왜 안돼;;;;
   private switchTodo(element: HTMLElement) {
-    const parent = findParentByCssSelector(element, "ul");
+    const parent = TODO_APP._todoListContainer.element;
     const checkBoxes = findChildrenByCssSelector(parent, ".toggle");
     const index = checkBoxes.indexOf(element);
     TODO_APP._todoList.completeItem(index);
@@ -62,7 +63,16 @@ export class TodoApp {
     TODO_APP._todoListContainer.toggleItem(index);
   }
 
-  private removeTodo() {}
+  private removeTodo(element: HTMLElement) {
+    if (confirm("삭제하시겠습니까?")) {
+      const parent = TODO_APP._todoListContainer.element;
+      const destroyButtons = findChildrenByCssSelector(parent, ".destroy");
+      const index = destroyButtons.indexOf(element);
+      TODO_APP._todoList.removeItem(index);
+      // todo 여기가 끊기는 부분
+      TODO_APP._todoListContainer.removeItem(index);
+    }
+  }
 
   private editTodo(content: string) {}
 

@@ -13,14 +13,20 @@ export class ToDoListTemplate {
     this.todoItemContainers = [];
   }
 
-  public toggleItem(index: number) {
-    const target = findChildrenByCssSelector(this.element, "li");
-    this.todoItemContainers[index] = this.todoItemContainers[index].toggle();
-  }
-
   public add(toDoItemTemplate: ToDoItemTemplate) {
     this._element.append(toDoItemTemplate.element);
     this.todoItemContainers.push(toDoItemTemplate);
+  }
+
+  public toggleItem(index: number) {
+    this.todoItemContainers[index] = this.todoItemContainers[index].toggle();
+  }
+
+  public removeItem(index: number) {
+    const children = findChildrenByCssSelector(this._element, "li");
+    children[index].remove();
+
+    this.todoItemContainers.splice(index);
   }
 
   public addCountObserver() {

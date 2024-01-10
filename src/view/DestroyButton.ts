@@ -3,15 +3,18 @@ import { ElementBuilder } from "../common/utils/ElementBuilder";
 
 export class DestroyButton {
   private readonly _element: HTMLElement;
-  private readonly _onClick: () => void;
+  private readonly _onClick: (element: HTMLElement) => void;
 
-  private constructor(element: HTMLElement, onClick: () => void) {
+  private constructor(
+    element: HTMLElement,
+    onClick: (element: HTMLElement) => void,
+  ) {
     this._element = element;
     this.addRemoveEvent();
     this._onClick = onClick;
   }
 
-  public static init(onClick: () => void) {
+  public static init(onClick: (element: HTMLElement) => void) {
     const destroyButton = ElementBuilder.init("button")
       .addClass("destroy")
       .build();
@@ -25,13 +28,7 @@ export class DestroyButton {
 
   private addRemoveEvent() {
     addClickEvent(this._element, () => {
-      this._onClick();
+      this._onClick(this._element);
     });
   }
 }
-// const parentLi = this._element.closest("li");
-// if (confirm("삭제하시겠습니까?")) {
-//   if (parentLi !== null) {
-//     parentLi.remove();
-//   }
-// }

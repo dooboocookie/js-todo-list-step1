@@ -11,7 +11,7 @@ export class ActiveItemTemplate extends ToDoItemTemplate {
   constructor(
     element: HTMLElement,
     onClickCheckbox: (element: HTMLElement) => void,
-    onClickDestroyButton: () => void,
+    onClickDestroyButton: (element: HTMLElement) => void,
     onEnterEditInput: (content: string) => void,
     onEscEditInput: () => void,
   ) {
@@ -28,7 +28,7 @@ export class ActiveItemTemplate extends ToDoItemTemplate {
   public static init(
     content: string,
     onClickCheckbox: (element: HTMLElement) => void,
-    onClickDestroyButton: () => void,
+    onClickDestroyButton: (element: HTMLElement) => void,
     onEnterEditInput: (content: string) => void,
     onEscEditInput: () => void,
   ): ActiveItemTemplate {

@@ -4,14 +4,14 @@ export class ToDoItemTemplate {
   //todo 상속하려니까 접근제어자가 이상해진다. 조합으로 바꾸자
   protected _element: HTMLElement;
   protected readonly _onClickCheckbox: (element: HTMLElement) => void;
-  protected readonly _onClickDestroyButton: () => void;
+  protected readonly _onClickDestroyButton: (element: HTMLElement) => void;
   protected readonly _onEnterEditInput: (content: string) => void;
   protected readonly _onEscEditInput: () => void;
 
   constructor(
     element: HTMLElement,
     onClickCheckbox: (element: HTMLElement) => void,
-    onClickDestroyButton: () => void,
+    onClickDestroyButton: (element: HTMLElement) => void,
     onEnterEditInput: (content: string) => void,
     onEscEditInput: () => void,
   ) {
